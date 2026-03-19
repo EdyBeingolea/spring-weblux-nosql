@@ -1,5 +1,7 @@
 package ap1.edy.beingolea.service;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import ap1.edy.beingolea.model.Product;
@@ -20,6 +22,7 @@ public class ProductService {
 
     public Mono<String> crearProduct(Product product) {
         Product nuevoProduct = Product.builder()
+                .id(UUID.randomUUID())
                 .nombre(product.getNombre())
                 .descripcion(product.getDescripcion())
                 .precio(product.getPrecio())
@@ -33,7 +36,7 @@ public class ProductService {
                 .map(saved -> "se guardo el producto" + saved.getId());
     }
 
-    public Mono<String> editarProduct(String id, Product product) {
+    public Mono<String> editarProduct(UUID id, Product product) {
         return productRepository.findById(id)
                 .flatMap(existingProduct -> {
                     existingProduct.setNombre(product.getNombre());
@@ -50,7 +53,7 @@ public class ProductService {
                 .switchIfEmpty(Mono.just("Producto no encontrado"));
     }
 
-    public Mono<String> eliminarProduct(String id) {
+    public Mono<String> eliminarProduct(UUID id) {
         return productRepository.findById(id)
                 .flatMap(existingProduct -> {
                     existingProduct.setActivo(false);

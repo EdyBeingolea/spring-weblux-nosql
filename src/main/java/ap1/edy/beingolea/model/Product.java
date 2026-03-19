@@ -2,7 +2,6 @@ package ap1.edy.beingolea.model;
 
 import java.util.UUID;
 
-import org.springframework.aot.generate.Generated;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
